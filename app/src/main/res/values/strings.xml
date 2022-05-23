@@ -9,4 +9,5 @@
     <string name="completed">Completed</string>
     <string name="todo_cell">Todo cell</string>
     <string name="image_close">Image close</string>
+    <string name="item_left">%d item left</string>
 </resources>
