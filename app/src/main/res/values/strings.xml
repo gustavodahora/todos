@@ -7,4 +7,6 @@
     <string name="all">All</string>
     <string name="active">Active</string>
     <string name="completed">Completed</string>
+    <string name="todo_cell">Todo cell</string>
+    <string name="image_close">Image close</string>
 </resources>
