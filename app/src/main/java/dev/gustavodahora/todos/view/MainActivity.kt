@@ -1,7 +1,8 @@
 package dev.gustavodahora.todos.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import dev.gustavodahora.todos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,5 +13,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
+        listeners()
+    }
+
+    private fun listeners() {
+        mBinding.cntEditText.setOnClickListener {
+            showEditTextAndKeyboard()
+        }
+    }
+
+    private fun showEditTextAndKeyboard() {
+        mBinding.editText.requestFocus()
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(mBinding.editText, InputMethodManager.SHOW_IMPLICIT)
     }
 }

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Todos</string>
+    <string name="logo">todos</string>
+    <string name="hint_standard_edit_text">What needs to be done?</string>
+    <string name="select_all_items_icon">Select all items icon</string>
 </resources>

@@ -4,7 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color_grey"
     tools:context=".view.MainActivity">
 
+    <TextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:textSize="60sp"
+        android:fontFamily="@font/plusjakartasans_regular"
+        android:textColor="@color/primaryDarkColor"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cnt_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_app_name"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:elevation="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@color/background_color_grey_light"
+        >
+
+        <ImageView
+            android:id="@+id/img_keyboard_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edit_text"
+            app:tint="@color/grey_hint"
+            android:contentDescription="@string/select_all_items_icon"
+            />
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@null"
+            android:fontFamily="@font/plusjakartasans_semibold"
+            android:hint="@string/hint_standard_edit_text"
+            android:inputType="text"
+            android:textColorHint="@color/grey_hint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_keyboard_down"
+            app:layout_constraintTop_toTopOf="parent"
+            android:ellipsize="end"
+            android:textColor="@color/gray_edit_text"
+            android:layout_marginEnd="35dp"
+            android:autofillHints="no" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

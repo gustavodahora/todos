@@ -12,4 +12,11 @@
     <color name="primaryLightColor">#fff7ff</color>
     <color name="primaryDarkColor">#a094b7</color>
     <color name="primaryTextColor">#000000</color>
+
+    <color name="gray_edit_text">#58534D</color>
+
+    <color name="background_color_grey">#F5F5F5</color>
+    <color name="background_color_grey_light">#FEFEFE</color>
+    <color name="grey_hint">#E6E6E6</color>
+
 </resources>
