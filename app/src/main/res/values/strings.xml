@@ -3,4 +3,8 @@
     <string name="logo">todos</string>
     <string name="hint_standard_edit_text">What needs to be done?</string>
     <string name="select_all_items_icon">Select all items icon</string>
+    <string name="label_standard_count">1 item left</string>
+    <string name="all">All</string>
+    <string name="active">Active</string>
+    <string name="completed">Completed</string>
 </resources>

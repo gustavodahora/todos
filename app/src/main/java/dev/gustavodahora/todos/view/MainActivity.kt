@@ -44,4 +44,8 @@ class MainActivity : AppCompatActivity() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(mBinding.editText, InputMethodManager.SHOW_IMPLICIT)
     }
+
+    private fun showRecycleControls() {
+
+    }
 }
