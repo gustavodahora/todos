@@ -13,20 +13,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private var _typeList = MutableLiveData<TypeList>()
     var typeList = _typeList
 
+    var isEmptyList = false
+
     fun getListData() {
         val arrayList = ArrayList<Todo>()
-        arrayList.add(Todo("Todo 1", false))
-        arrayList.add(Todo("Todo 2", false))
-        arrayList.add(Todo("Todo 3", false))
-        arrayList.add(Todo("Todo 4", false))
-        arrayList.add(Todo("Todo 5", true))
-        arrayList.add(Todo("Todo 6", true))
-        arrayList.add(Todo("Todo 7", true))
-        arrayList.add(Todo("Todo 8", true))
-        arrayList.add(Todo("Todo 9", true))
-        arrayList.add(Todo("Todo 10", true))
-        arrayList.add(Todo("Todo 11", true))
-        arrayList.add(Todo("Todo 12", true))
+        repeat(10) { index -> arrayList.add(Todo("Task $index", false)) }
+        isEmptyList = arrayList.size <= 0
         when (typeList.value) {
             TypeList.ALL -> {
                 _listTodo.value = arrayList

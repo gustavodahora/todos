@@ -16,6 +16,7 @@ import dev.gustavodahora.todos.model.Todo
 import dev.gustavodahora.todos.model.TypeList
 import dev.gustavodahora.todos.viewmodel.MainViewModel
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun hideRecycleControls() {
-        mBinding.cntRecycleControl.visibility = View.GONE
+        mBinding.cntRecycleControl.visibility = View.INVISIBLE
         mBinding.imgKeyboardDown.visibility = View.INVISIBLE
     }
 
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startRecycle(list: List<Todo>) {
-        if (list.isNotEmpty()) {
+        if (list.isNotEmpty() || !viewModel.isEmptyList) {
             mBinding.recyclerViewListItem.layoutManager = LinearLayoutManager(this)
             mBinding.recyclerViewListItem.adapter = TodoAdapter(list, context = applicationContext)
             showRecycleControls()
