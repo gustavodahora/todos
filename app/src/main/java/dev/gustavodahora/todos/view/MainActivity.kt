@@ -5,12 +5,15 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.gustavodahora.todos.R
 import dev.gustavodahora.todos.adapter.TodoAdapter
+import dev.gustavodahora.todos.application.TodoApplication
+import dev.gustavodahora.todos.database.TodoRepository
 import dev.gustavodahora.todos.databinding.ActivityMainBinding
 import dev.gustavodahora.todos.model.Todo
 import dev.gustavodahora.todos.model.TypeList
@@ -20,19 +23,19 @@ import dev.gustavodahora.todos.viewmodel.MainViewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModel.TodoViewModelFactory((application as TodoApplication).repository)
+    }
+    private var arrayListFilter: List<Todo> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
         setFilter(TypeList.ALL)
         listeners()
         observable()
-        getRecycle()
     }
 
     private fun listeners() {
@@ -44,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         mBinding.editText.setOnEditorActionListener { view, actionId, event ->
             if (actionId != 0 || event?.action == KeyEvent.ACTION_DOWN) {
                 // Action
-                Log.i("event", "finish add todo")
+                viewModel.insertNewItem(view.text.toString())
                 view.text = ""
                 false
             } else {
@@ -64,11 +67,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun observable() {
         viewModel.listTodo.observe(this) {
-            startRecycle(it)
+            setTypeAndStartRecycle(it)
         }
         viewModel.typeList.observe(this) {
             controlFilterAndStartRecycle(it)
         }
+    }
+
+    private fun setTypeAndStartRecycle(list: List<Todo>) {
+        when (viewModel.typeList.value) {
+            TypeList.ALL -> {
+                arrayListFilter = list
+            }
+            TypeList.ACTIVE -> {
+                arrayListFilter = list.filter { todo -> !todo.completed }
+            }
+            TypeList.COMPLETED -> {
+                arrayListFilter = list.filter { todo -> todo.completed }
+            }
+            else -> {
+                arrayListFilter = list
+            }
+        }
+        validateCompletedItemsCount()
+        startRecycle(arrayListFilter)
     }
 
     private fun showEditTextAndKeyboard() {
@@ -87,11 +109,6 @@ class MainActivity : AppCompatActivity() {
         mBinding.imgKeyboardDown.visibility = View.INVISIBLE
     }
 
-    private fun getRecycle() {
-        viewModel.getListData()
-        validateCompletedItemsCount()
-    }
-
     private fun startRecycle(list: List<Todo>) {
         if (list.isNotEmpty() || !viewModel.isEmptyList) {
             mBinding.recyclerViewListItem.layoutManager = LinearLayoutManager(this)
@@ -107,10 +124,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun controlFilterAndStartRecycle(type: TypeList) {
-        viewModel.getListData()
-        viewModel.listTodo.value?.let {
-                list -> startRecycle(list)
-        }
+        viewModel.listTodo.value?.let { setTypeAndStartRecycle(it) }
+        startRecycle(arrayListFilter)
         mBinding.tvAll.background = null
         mBinding.tvActive.background = null
         mBinding.tvCompleted.background = null
