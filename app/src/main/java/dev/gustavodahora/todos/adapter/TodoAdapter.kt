@@ -11,8 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import dev.gustavodahora.todos.R
 import dev.gustavodahora.todos.model.Todo
+import dev.gustavodahora.todos.view.MainActivity
 
-class TodoAdapter(private val listTodo: List<Todo>, val context: Context) : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
+class TodoAdapter(private val listTodo: List<Todo>, val context: Context, val mainActivity: MainActivity) : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
     // holder class to hold reference
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -37,6 +38,7 @@ class TodoAdapter(private val listTodo: List<Todo>, val context: Context) : Recy
         holder.tvTodo.text = listTodo[position].todo
         holder.checkBox.setOnClickListener {
             setupCompleted(holder, position, holder.checkBox.isChecked)
+            mainActivity.updateItemRepo(listTodo[position])
         }
     }
 

@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
     private fun startRecycle(list: List<Todo>) {
         if (list.isNotEmpty() || !viewModel.isEmptyList) {
             mBinding.recyclerViewListItem.layoutManager = LinearLayoutManager(this)
-            mBinding.recyclerViewListItem.adapter = TodoAdapter(list, context = applicationContext)
+            mBinding.recyclerViewListItem.adapter = TodoAdapter(list, context = applicationContext, this@MainActivity)
             showRecycleControls()
         } else {
             hideRecycleControls()
@@ -146,5 +146,9 @@ class MainActivity : AppCompatActivity() {
     private fun validateCompletedItemsCount() {
         val array = viewModel.listTodo.value?.filter { todo -> !todo.completed }
         mBinding.tvItemCount.text = getString(R.string.item_left, array?.size)
+    }
+
+    fun updateItemRepo(todo: Todo) {
+        viewModel.updateItem(todo)
     }
 }

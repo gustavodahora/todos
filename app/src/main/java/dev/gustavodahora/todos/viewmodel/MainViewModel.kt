@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import dev.gustavodahora.todos.database.TodoRepository
 import dev.gustavodahora.todos.model.Todo
 import dev.gustavodahora.todos.model.TypeList
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: TodoRepository) : ViewModel() {
@@ -19,6 +18,12 @@ class MainViewModel(private val repository: TodoRepository) : ViewModel() {
         viewModelScope.launch {
             val todo = Todo(text, false)
             repository.insertTodoData(todo)
+        }
+    }
+
+    fun updateItem(todo: Todo) {
+        viewModelScope.launch {
+            repository.updateTodoData(todo)
         }
     }
 
