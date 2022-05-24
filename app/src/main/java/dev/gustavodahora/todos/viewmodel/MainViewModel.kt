@@ -27,6 +27,12 @@ class MainViewModel(private val repository: TodoRepository) : ViewModel() {
         }
     }
 
+    fun deleteItemRepo(todo: Todo) {
+        viewModelScope.launch {
+            repository.deleteTodoData(todo)
+        }
+    }
+
     fun setupFilter(type: TypeList) {
         _typeList.value = type
     }

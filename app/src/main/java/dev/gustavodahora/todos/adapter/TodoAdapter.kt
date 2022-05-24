@@ -40,6 +40,9 @@ class TodoAdapter(private val listTodo: List<Todo>, val context: Context, val ma
             setupCompleted(holder, position, holder.checkBox.isChecked)
             mainActivity.updateItemRepo(listTodo[position])
         }
+        holder.imgClose.setOnClickListener {
+            mainActivity.deleteItemRepo(listTodo[position])
+        }
     }
 
     override fun getItemCount(): Int {

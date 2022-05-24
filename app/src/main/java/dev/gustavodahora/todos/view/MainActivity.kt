@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startRecycle(list: List<Todo>) {
-        if (list.isNotEmpty() || !viewModel.isEmptyList) {
+        if (list.isNotEmpty() || viewModel.listTodo.value?.isNotEmpty() == true) {
             mBinding.recyclerViewListItem.layoutManager = LinearLayoutManager(this)
             mBinding.recyclerViewListItem.adapter = TodoAdapter(list, context = applicationContext, this@MainActivity)
             showRecycleControls()
@@ -150,5 +150,9 @@ class MainActivity : AppCompatActivity() {
 
     fun updateItemRepo(todo: Todo) {
         viewModel.updateItem(todo)
+    }
+
+    fun deleteItemRepo(todo: Todo) {
+        viewModel.deleteItemRepo(todo)
     }
 }
